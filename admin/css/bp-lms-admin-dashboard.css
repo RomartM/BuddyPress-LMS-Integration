@@ -1,0 +1,95 @@
+.bp-lms-dashboard-container {
+    margin: 0 22px 22px 0;
+}
+
+.bp-lms-dashboard-tab-view {
+    margin: 16px 0;
+}
+
+.bp-lms-title>h1 {
+    font-size: 23px;
+    font-weight: 400;
+    margin-bottom: -9px;
+    padding: 9px 0 4px 0;
+    line-height: 1.3;
+}
+
+.bp-lms-description {
+    margin-bottom: 9px;
+}
+
+textarea#description, textarea#group_description {
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+div.bp-option {
+    background: #fafafa;
+    border: 1px solid #dfdfdf;
+    margin: 10px 0;
+    padding: 10px 5px;
+}
+
+.bp-option-icon {
+    font: 400 20px/1 dashicons;
+    speak: none;
+    display: inline-block;
+    padding: 0 0 0 2px;
+    top: 5px;
+    position: relative;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none!important;
+    color: #888;
+}
+
+div.bp-option .grabber:before {
+    content: "\f329";
+}
+
+.bp-option a.delete, .field-wrapper a.deletion, .tab-toolbar a.deletion {
+    color: #a00;
+    border-bottom: 1px solid #a00;
+    text-decoration: none;
+    padding: 0;
+}
+
+@media screen and (max-width: 782px) {
+    .bp-date-formats .bp-date-format-option:first-of-type {
+        margin-top:1em
+    }
+
+    .bp-range-types .bp-date-format-option {
+        margin-bottom: 1em;
+        margin-top: 1em
+    }
+
+    .form-table td input.date-format-custom-value,.form-table td input.date-range-numeric {
+        display: inline-block;
+        margin-right: 10px;
+        width: 56px
+    }
+
+    .form-table td .bp-date-range-type-values select {
+        display: inline-block;
+        width: auto
+    }
+
+    .bp-date-range-type-label {
+        float: none;
+        width: auto
+    }
+
+    .bp-date-range-type-values {
+        padding-left: 0;
+        margin-left: 35px
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .form-table .bp-range-types label {
+        clear:both;
+        display: block
+    }
+}
