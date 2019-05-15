@@ -1,0 +1,6 @@
+/*
+    Remove field visibility option header
+*/
+div#profile-details-section>div>fieldset>p.field-visibility-settings-header {
+    display: none;
+}
