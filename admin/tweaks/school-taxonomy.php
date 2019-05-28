@@ -3,23 +3,43 @@
 require BP_LMS_BASE_PATH.'/admin/config.php';
 
 // Add School Option Field
-function bp_lp_insert_school_field($parent_id, $field_name, $field_name_old, $description){
+function bp_lp_insert_school_field($id, $parent_id, $field_name, $description, $type){
     // Preset field config template
-    $field_args = array(
-        'field_group_id' =>1,
-        'parent_id' => $parent_id,
-        'type' => 'option',
-        'description' => $description,
-        'is_default_option' => null
-    );
-
-    $field_args['field_id'] = bp_lms_get_option_id(
-        xprofile_get_field_id_from_name('School'),
-        $field_name_old
-    );
-    $field_args['name'] = $field_name;
-    // Insert Field
-    xprofile_insert_field($field_args);
+    $bp = buddypress();
+    global $wpdb;
+    $table_name = $bp->profile->table_name_fields;
+    if($type=='created'){
+        $wpdb->insert($table_name, array(
+                'id' => $id,
+                'group_id' => 0,
+                'parent_id' => $parent_id,
+                'type' => 'option',
+                'name' => $field_name,
+                'description' => $description,
+                'is_required' => false,
+                'order_by' => '',
+                'field_order' => '',
+                'option_order' => '',
+                'can_delete' => '',
+                'is_default_option' => false
+            )
+        );
+    }else{
+        $wpdb->update($table_name, array(
+                'group_id' => 0,
+                'parent_id' => $parent_id,
+                'type' => 'option',
+                'name' => $field_name,
+                'description' => $description,
+                'is_required' => false,
+                'order_by' => '',
+                'field_order' => '',
+                'option_order' => '',
+                'can_delete' => '',
+                'is_default_option' => false
+            ), array('id' => $id)
+        );
+    }
 }
 
 function bp_lp_custom_school_taxonomy(){
@@ -63,7 +83,7 @@ function bp_lp_field_settings($taxonomy) {
 
 add_action('after-course_school-table','bp_lp_field_settings');
 
-function watch_course_school($term_id, $tt_id, $taxonomy){
+function watch_create_course_school($term_id, $tt_id, $taxonomy){
     if($taxonomy==='course_school'){
         $data = get_term($term_id);
         $school_id = xprofile_get_field_id_from_name("School");
@@ -71,16 +91,37 @@ function watch_course_school($term_id, $tt_id, $taxonomy){
             $data->term_id,
             $school_id,
             $data->name,
-            $data->description
+            $data->description,
+            'created'
         );
     }
 }
 
+function watch_edit_course_school($term_id, $tt_id, $taxonomy){
+    if($taxonomy==='course_school'){
+        $data = get_term($term_id);
+        $school_id = xprofile_get_field_id_from_name("School");
+        bp_lp_insert_school_field(
+            $data->term_id,
+            $school_id,
+            $data->name,
+            $data->description,
+            'edit'
+        );
+    }
+}
 
-//add_action( 'created_term', 'watch_course_school', 10, 3 );
+function watch_delete_course_school($term_id, $tt_id, $taxonomy){
+    if($taxonomy==='course_school'){
+        $bp = buddypress();
+        global $wpdb;
+        $table_name = $bp->profile->table_name_fields;
+        $wpdb->delete( $table_name, array( 'id' => $term_id ) );
+    }
+}
 
-//apply_filters( 'edit_term', 'watch_course_school', 10, 3 );
+add_action( 'created_term', 'watch_create_course_school', 10, 3 );
 
-//add_action( 'delete_term', 'delete_course_school', 10, 3 );
+add_action( 'edited_term', 'watch_edit_course_school', 10, 3 );
 
-//function watch_old_data($term_id, $tt_id);
+add_action( 'delete_term', 'watch_delete_course_school', 10, 3 );
