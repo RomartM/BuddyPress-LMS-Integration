@@ -4,43 +4,42 @@
 include ('config.php');
 
 // Include Custom Profile Field Class
-include ('bp-lms-xprofile-field.php');
+include('buddypress/bp-lms-xprofile-functions.php');
+include('buddypress/bp-lms-xprofile-field.php');
+include('buddypress/bp-lms-xprofile-field-type.php');
+include('buddypress/bp-lms-xprofile-field-selectbox.php');
 
-if( isset($_GET["mode"]) && isset($_GET["field_id"])){
-    if($_GET["mode"]==="edit"){
-        global $wpdb;
-        $bp = buddypress();
-        $field = xprofile_get_field( $_GET["field_id"] );
-        $field_id = $_GET["field_id"];
-        if ( ! empty( $_POST["sort_order_{$field->type}"] ) ) {
-            $field->order_by = $_POST["sort_order_{$field->type}"];
-        }
 
-        $field->field_order = $wpdb->get_var( $wpdb->prepare( "SELECT field_order FROM {$bp->profile->table_name_fields} WHERE id = %d", $field_id ) );
-        if ( ! is_numeric( $field->field_order ) || is_wp_error( $field->field_order ) ) {
-            $field->field_order = (int) $wpdb->get_var( $wpdb->prepare( "SELECT max(field_order) FROM {$bp->profile->table_name_fields} WHERE group_id = %d", $group_id ) );
-            $field->field_order++;
-        }
-
-        // For new profile fields, set the $field_id. For existing profile
-        // fields, this will overwrite $field_id with the same value.
-        $field_id = $field->save();
-        if ( $field->type_obj->do_settings_section() ) {
-            $settings = isset( $_POST['field-settings'] ) ? wp_unslash( $_POST['field-settings'] ) : array();
-            $field->admin_save_settings( $settings );
-        }
-        do_action( 'xprofile_fields_saved_field', $field );
+if(isset($_GET["action"])){
+    switch ($_GET["action"]){
+        case 'field_settings':
+            include 'overrides/bp-school.php';
+            break;
     }
 }
 
-// Get current selected tab
-$bp_lms_selected_tab = filter_input( INPUT_GET, "tab", FILTER_SANITIZE_STRING );
+if( isset($_GET["mode"]) && isset($_GET["field_id"])){
+    if($_GET["mode"]==="edit" && $_SERVER["REQUEST_METHOD"]=="POST"){
+        $field = xprofile_get_field( $_GET["field_id"] );
+        $field->save();
+        $field_id = $_GET["field_id"];
 
-// Load default tab
-if(empty($bp_lms_selected_tab) || !in_array($bp_lms_selected_tab, $bp_lms_tabs_registered)){
-    //Redirect to default tab
-    bp_lms_get_default_tab(true);
+        $orignal_cat = $_POST["multiselectbox_option"];
+        $modified_cat = $_POST["selectbox_option"];
+
+        $cat_differ = bp_lms_differ($orignal_cat, $modified_cat);
+        $cat_excess = $cat_differ->excess;
+        $cat_changes = $cat_differ->changes;
+
+        if(count($cat_changes)!==0){
+            bp_lms_course_category_inject($cat_changes,"changes");
+            echo "C";
+        }
+
+        if(count($cat_excess)!==0){
+            bp_lms_course_category_inject($cat_excess,"excess");
+            echo "E";
+        }
+    }
 }
 
-// Load Dashboard template
-require_once('templates/dashboard.tmpl.php');
