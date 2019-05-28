@@ -23,6 +23,19 @@ class BP_LMS_XProfile_Field extends BP_XProfile_Field {
         parent::__construct($field);
     }
 
+    public function render_tab_form_children() {
+        foreach ( array_keys( bp_lms_xprofile_get_field_types() ) as $field_type ) {
+            if($field_type==="selectbox"){
+                $type_obj = bp_lms_xprofile_create_field_type( $field_type );
+                $type_obj->tab_new_field_html( $this );
+            }else{
+                $type_obj = bp_xprofile_create_field_type( $field_type );
+                $type_obj->admin_new_field_html( $this );
+            }
+
+        }
+    }
+
     public function render_tab_form( $message = '' ) {
 
         // Users Admin URL
@@ -105,11 +118,10 @@ class BP_LMS_XProfile_Field extends BP_XProfile_Field {
      */
     private function submit_metabox( $button_text = '' ) {
 
-        // Setup the URL for deleting
-        $users_url  = bp_get_admin_url( 'users.php' );
+        // Setup the URL for cancel
         $cancel_url = add_query_arg( array(
-            'page' => 'bp-profile-setup'
-        ), $users_url );
+            'page' => 'buddypress-lms-integration'
+        ), admin_url("admin.php") );
 
         /**
          * Fires before XProfile Field submit metabox.
@@ -193,9 +205,9 @@ class BP_LMS_XProfile_Field extends BP_XProfile_Field {
         ?>
 
         <div id="member-types-div" class="postbox">
-            <h2><?php _e( 'Member Types', 'buddypress' ); ?></h2>
+            <h2><?php _e( 'Member Types' ); ?></h2>
             <div class="inside">
-                <p class="description"><?php _e( 'This field should be available to:', 'buddypress' ); ?></p>
+                <p class="description"><?php _e( 'This field should be available to:'); ?></p>
 
                 <ul>
                     <?php foreach ( $member_types as $member_type ) : ?>
@@ -246,7 +258,7 @@ class BP_LMS_XProfile_Field extends BP_XProfile_Field {
                 // Deprecated filter, don't use. Go look at {@link BP_XProfile_Field_Type::admin_new_field_html()}.
                 do_action( 'xprofile_field_additional_options', $this );
 
-                $this->render_admin_form_children(); ?>
+                $this->render_tab_form_children(); ?>
 
             </div>
         </div>
