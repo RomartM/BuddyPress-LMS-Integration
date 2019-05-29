@@ -9,7 +9,6 @@ include('buddypress/bp-lms-xprofile-field.php');
 include('buddypress/bp-lms-xprofile-field-type.php');
 include('buddypress/bp-lms-xprofile-field-selectbox.php');
 
-
 if(isset($_GET["action"])){
     switch ($_GET["action"]){
         case 'field_settings':
@@ -42,4 +41,3 @@ if( isset($_GET["mode"]) && isset($_GET["field_id"])){
         }
     }
 }
-
