@@ -44,6 +44,7 @@ function bp_lp_custom_user_roles_taxonomy(){
     // Add Class taxonomy, make it hierarchical (like categories)
     $args = array(
         'label'             => __( 'User Roles', 'buddypress-lms-integration' ),
+        'has_archive' => true,
         'labels'            => array(
             'name'          => __( 'User Roles', 'buddypress-lms-integration' ),
             'menu_name'     => __( 'User Role', 'buddypress-lms-integration' ),

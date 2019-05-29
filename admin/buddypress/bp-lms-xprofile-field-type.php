@@ -117,14 +117,6 @@ class BP_LMS_XProfile_Field_Type extends BP_XProfile_Field_Type {
                                 <input type="<?php echo esc_attr( $control_type ); ?>" id="<?php echo esc_attr( "{$type}_option{$default_name}" ); ?>" name="<?php echo esc_attr( "isDefault_{$type}_option{$default_name}" ); ?>" <?php checked( $options[$i]->is_default_option, true ); ?> value="<?php echo esc_attr( $j ); ?>" />
                                 <?php _e( 'Default Value', 'buddypress' ); ?>
                             </label>
-                            <div class="bp-lms-item-control">
-                                <a href="<?php echo add_query_arg(
-                                        array(  'post_type'  => 'lp_course',
-                                                'course_school'  => esc_attr(str_replace(" ", "-", strtolower($options[$i]->name)))
-                                            ),
-                                        admin_url("edit.php")
-                                );?>">Manage <?php echo $current_field->identifier==='school'? 'Courses':'Users'; ?></a>
-                            </div>
                         </div>
 
                     <?php endfor; ?>
