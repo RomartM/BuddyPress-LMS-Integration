@@ -1,6 +1,5 @@
 <?php
 
-require BP_LMS_BASE_PATH.'/admin/config.php';
 
 // Add School Option Field
 function bp_lp_insert_school_field($id, $parent_id, $field_name, $description, $type){
@@ -11,7 +10,7 @@ function bp_lp_insert_school_field($id, $parent_id, $field_name, $description, $
     if($type=='created'){
         $wpdb->insert($table_name, array(
                 'id' => $id,
-                'group_id' => 0,
+                'group_id' => 1,
                 'parent_id' => $parent_id,
                 'type' => 'option',
                 'name' => $field_name,
@@ -20,13 +19,13 @@ function bp_lp_insert_school_field($id, $parent_id, $field_name, $description, $
                 'order_by' => '',
                 'field_order' => '',
                 'option_order' => '',
-                'can_delete' => '',
+                'can_delete' => 0,
                 'is_default_option' => false
             )
         );
     }else{
         $wpdb->update($table_name, array(
-                'group_id' => 0,
+                'group_id' => 1,
                 'parent_id' => $parent_id,
                 'type' => 'option',
                 'name' => $field_name,
@@ -35,7 +34,7 @@ function bp_lp_insert_school_field($id, $parent_id, $field_name, $description, $
                 'order_by' => '',
                 'field_order' => '',
                 'option_order' => '',
-                'can_delete' => '',
+                'can_delete' => 0,
                 'is_default_option' => false
             ), array('id' => $id)
         );
