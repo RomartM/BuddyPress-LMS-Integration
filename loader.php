@@ -4,7 +4,7 @@
 Plugin Name: BuddyPress LMS Integration
 Plugin URI: http://dev.jsredevs-site.ml
 Description: Add custom registration fields and Manage User Information
-Version: 1.2.0
+Version: 1.2.1
 Author: JSRE Developers
 Author URI: http://jsredevelopers.com
 Requires at least: WordPress 2.9.1 / BuddyPress 1.2
