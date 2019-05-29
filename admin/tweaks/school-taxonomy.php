@@ -142,6 +142,12 @@ add_action( 'delete_term', 'watch_delete_course_school', 10, 3 );
 
 function exclude_category( $query ) {
     $user = wp_get_current_user();
+    if(empty($user->roles[0])){
+        return;
+    }
+    if($user->roles[0] == 'subscriber'){
+        return;
+    }
     if($user->roles[0] == 'student'){
 
         $user_school = get_user_school( $user->ID );
