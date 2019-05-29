@@ -39,7 +39,7 @@ class BP_LMS_XProfile_Field_Type extends BP_XProfile_Field_Type {
         ?>
 
         <div id="<?php echo esc_attr( $type ); ?>" class="postbox bp-options-box" style="<?php echo esc_attr( $class ); ?> margin-top: 15px;">
-            <h3><?php esc_html_e( 'Please enter options for this Field:' ); ?></h3>
+            <h3><?php esc_html_e( 'Rearrange School field values' ); ?></h3>
             <div class="inside" aria-live="polite" aria-atomic="true" aria-relevant="all">
                 <p>
                     <label for="sort_order_<?php echo esc_attr( $type ); ?>"><?php esc_html_e( 'Sort Order:', 'buddypress' ); ?></label>
@@ -112,7 +112,7 @@ class BP_LMS_XProfile_Field_Type extends BP_XProfile_Field_Type {
                                 /* translators: accessibility text */
                                 esc_html_e( 'Add an option', 'buddypress' );
                                 ?></label>
-                            <input type="text" name="<?php echo esc_attr( "{$type}_option[{$j}]" ); ?>" id="<?php echo esc_attr( "{$type}_option{$j}" ); ?>" value="<?php echo esc_attr( stripslashes( $options[$i]->name ) ); ?>" />
+                            <input type="text" readonly name="<?php echo esc_attr( "{$type}_option[{$j}]" ); ?>" id="<?php echo esc_attr( "{$type}_option{$j}" ); ?>" value="<?php echo esc_attr( stripslashes( $options[$i]->name ) ); ?>" />
                             <label for="<?php echo esc_attr( "{$type}_option{$default_name}" ); ?>">
                                 <input type="<?php echo esc_attr( $control_type ); ?>" id="<?php echo esc_attr( "{$type}_option{$default_name}" ); ?>" name="<?php echo esc_attr( "isDefault_{$type}_option{$default_name}" ); ?>" <?php checked( $options[$i]->is_default_option, true ); ?> value="<?php echo esc_attr( $j ); ?>" />
                                 <?php _e( 'Default Value', 'buddypress' ); ?>
@@ -120,18 +120,11 @@ class BP_LMS_XProfile_Field_Type extends BP_XProfile_Field_Type {
                             <div class="bp-lms-item-control">
                                 <a href="<?php echo add_query_arg(
                                         array(  'post_type'  => 'lp_course',
-                                                'course_category'  => esc_attr(str_replace(" ", "-", strtolower($options[$i]->name)))
+                                                'course_school'  => esc_attr(str_replace(" ", "-", strtolower($options[$i]->name)))
                                             ),
                                         admin_url("edit.php")
                                 );?>">Manage <?php echo $current_field->identifier==='school'? 'Courses':'Users'; ?></a>
                             </div>
-
-                            <?php if ( 1 !== $j ) : ?>
-                                <div class ="delete-button">
-                                    <a href='javascript:hide("<?php echo esc_attr( "{$type}_div{$j}" ); ?>")' class="delete"><?php esc_html_e( 'Delete', 'buddypress' ); ?></a>
-                                </div>
-                            <?php endif; ?>
-
                         </div>
 
                     <?php endfor; ?>
@@ -139,8 +132,6 @@ class BP_LMS_XProfile_Field_Type extends BP_XProfile_Field_Type {
                     <input type="hidden" name="<?php echo esc_attr( "{$type}_option_number" ); ?>" id="<?php echo esc_attr( "{$type}_option_number" ); ?>" value="<?php echo esc_attr( $j + 1 ); ?>" />
                 <?php } ?>
                 <div id="<?php echo esc_attr( "{$type}_more" ); ?>"></div>
-                <p><a href="javascript:add_option('<?php echo esc_js( $type ); ?>')"><?php esc_html_e( 'Add Another Option', 'buddypress' ); ?></a></p>
-
                 <?php
 
                 /**

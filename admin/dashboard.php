@@ -1,7 +1,5 @@
 <?php
 
-// Admin Dashboard Configuration
-include ('config.php');
 
 // Include Custom Profile Field Class
 include('buddypress/bp-lms-xprofile-functions.php');
@@ -13,6 +11,9 @@ if(isset($_GET["action"])){
     switch ($_GET["action"]){
         case 'field_settings':
             include 'overrides/bp-school.php';
+            break;
+        case 'user_role_settings':
+            include 'overrides/bp-user-roles.php';
             break;
     }
 }

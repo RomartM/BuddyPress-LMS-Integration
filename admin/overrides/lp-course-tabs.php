@@ -12,12 +12,6 @@ function bp_lp_admin_course_tabs() {
                 'learn_press_admin_tabs_info',
                 array(
 
-                    10 => array(
-                        "link" => "edit-tags.php?taxonomy=course_school&post_type=lp_course",
-                        "name" => __( "Schools", "buddypress-lms-integration" ),
-                        "id"   => "edit-course_school",
-                        "rel-id" => "toplevel_page_buddypress-lms-integration",
-                    ),
 
                     20 => array(
                         "link" => "edit.php?post_type=lp_course",
@@ -40,6 +34,20 @@ function bp_lp_admin_course_tabs() {
                         "rel-id" => "",
                     ),
 
+                    50 => array(
+                        "link" => "edit-tags.php?taxonomy=course_school&post_type=lp_course",
+                        "name" => __( "Schools", "buddypress-lms-integration" ),
+                        "id"   => "edit-course_school",
+                        "rel-id" => "toplevel_page_buddypress-lms-integration",
+                    ),
+
+                    60 => array(
+                        "link" => "edit-tags.php?taxonomy=user_role&post_type=lp_course",
+                        "name" => __( "Use Roles", "buddypress-lms-integration" ),
+                        "id"   => "edit-user_role",
+                        "rel-id" => "toplevel_page_buddypress-lms-integration",
+                    ),
+
                 )
             );
             ksort( $admin_tabs );
@@ -55,6 +63,7 @@ function bp_lp_admin_course_tabs() {
                     'edit-course_school',
                     'edit-course_tag',
                     'lp_course',
+                    'edit-user_role',
                     'toplevel_page_buddypress-lms-integration' )
             );
             $admin_tabs_on_page = array();
