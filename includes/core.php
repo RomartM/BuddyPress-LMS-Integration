@@ -37,6 +37,9 @@ add_action('admin_menu', 'bp_lms_admin_dashboard');
 // Load FrontEnd stylesheet
 add_action('wp_enqueue_scripts', 'bp_lms_load_stylesheet');
 
+// Load javascripts from public dir
+add_action('wp_enqueue_scripts', 'bp_lms_load_javascript');
+
 // Override Old LP Course Post_Type
 add_action('init','bp_lp_course_post_type');
 
