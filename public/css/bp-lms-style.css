@@ -4,3 +4,10 @@
 div#profile-details-section>div>fieldset>p.field-visibility-settings-header {
     display: none;
 }
+
+/*
+    Registration page, remove user role select
+*/
+#profile-details-section > .field_3 {
+    visibility: hidden;
+}
