@@ -60,4 +60,4 @@ add_action( 'all_admin_notices', 'bp_lp_admin_course_tabs' );
 add_action( 'restrict_manage_posts', 'filter_by_schools_taxonomies');
 
 // Add User Dashboard ShortCode
-add_shortcode( 'user_dashboard', 'user_dashboard_shortcode' );
+//add_shortcode( 'user_dashboard', 'user_dashboard_shortcode' );
