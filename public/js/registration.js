@@ -4,7 +4,7 @@ var pathname = window.location.pathname;
 
 function change_registration_title(title) {
   /* Default: CREATE AN ACCOUNT */
-  var new_title = "CREATE AN ACCOUNT: " + title;
+  var new_title = "CREATE AN ACCOUNT | " + title;
 
   /* Applicable on eduma template */
   jQuery("div.banner-wrapper>h1").text(new_title);
@@ -31,8 +31,8 @@ function setup_registration_by(user_role) {
   }
 }
 
-/* Restrict script to runs only on "/solidnet/pre-registration/" link */
-if (pathname == "/solidnet/pre-registration/") {
+/* Restrict script to runs only on "/solidnet/registration/" link */
+if (pathname == "/solidnet/register/") {
   /* Run this script after loaded */
   document.addEventListener("DOMContentLoaded", function(){
     /* check the query string */
@@ -46,15 +46,18 @@ if (pathname == "/solidnet/pre-registration/") {
           change_registration_title(user_role);
         } else {
           /* default: student */
-          setup_registration_by('student');
+          // setup_registration_by('student');
+          window.location.href = '/solidnet/pre-registration';
         }
       } else {
         /* default: student */
-        setup_registration_by('student');
+        // setup_registration_by('student');
+        window.location.href = '/solidnet/pre-registration';
       }
     } else {
       /* default: student */
-      setup_registration_by('student');
+      // setup_registration_by('student');
+      window.location.href = '/solidnet/pre-registration';
     }
   });
 }
