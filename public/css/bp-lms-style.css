@@ -8,6 +8,6 @@ div#profile-details-section>div>fieldset>p.field-visibility-settings-header {
 /*
     Registration page, remove user role select
 */
-#profile-details-section > .field_3 {
+#profile-details-section > .field_7 {
     visibility: hidden;
 }
