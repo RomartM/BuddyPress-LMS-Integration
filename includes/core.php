@@ -31,6 +31,9 @@ require_once(BP_LMS_BASE_PATH . '/admin/tweaks/school-taxonomy.php');
 // Load Custom User Taxonomy
 require_once(BP_LMS_BASE_PATH . '/admin/tweaks/user-roles-taxonomy.php');
 
+// Load User Dashboard Short Code
+require_once(BP_LMS_BASE_PATH . '/public/shortcode-dashboard-user.php');
+
 // Add Admin Menu
 add_action('admin_menu', 'bp_lms_admin_dashboard');
 
@@ -41,7 +44,7 @@ add_action('wp_enqueue_scripts', 'bp_lms_load_stylesheet');
 add_action('wp_enqueue_scripts', 'bp_lms_load_javascript');
 
 // Override Old LP Course Post_Type
-add_action('init','bp_lp_course_post_type');
+//add_action('init','bp_lp_course_post_type');
 
 // Add Custom Taxonomy
 add_action('init','bp_lp_custom_school_taxonomy');
@@ -55,3 +58,6 @@ add_action( 'all_admin_notices', 'bp_lp_admin_course_tabs' );
 
 // Add Filter by Course
 add_action( 'restrict_manage_posts', 'filter_by_schools_taxonomies');
+
+// Add User Dashboard ShortCode
+add_shortcode( 'user_dashboard', 'user_dashboard_shortcode' );

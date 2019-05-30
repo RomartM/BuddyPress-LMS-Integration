@@ -37,6 +37,7 @@ function bp_lp_insert_user_roles_field($id, $parent_id, $field_name, $descriptio
             'is_default_option' => false
         ), array('id' => $id)
         );
+        // TODO: Update XProfile Data after updating XProfile Field
     }
 }
 
