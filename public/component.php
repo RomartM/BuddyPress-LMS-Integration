@@ -6,5 +6,5 @@ function bp_lms_load_stylesheet(){
 
 function bp_lms_load_javascript(){
     //load registration script
-    wp_enqueue_script('bp-lms-registration-script', plugins_url('js/registration.js', __FILE__));
+    wp_enqueue_script('bp-lms-1-registration-script', plugins_url('js/registration.js', __FILE__));
 }
