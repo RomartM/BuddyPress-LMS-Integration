@@ -1,0 +1,30 @@
+/* Tab Design */
+.nav-tab {
+    float: left;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    margin-left: .5em;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+    background: #e5e5e5;
+    color: #555;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.tab-content > div {
+    margin: 0 25px;
+    padding: 10px 5px;
+}
+
+.subsubsub {
+    display: flex;
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    font-size: 13px;
+    float: left;
+    color: #666;
+}
