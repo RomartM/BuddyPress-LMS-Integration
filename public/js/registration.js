@@ -1,7 +1,3 @@
-/* get query string parameters */
-var urlParams = new URLSearchParams(window.location.search);
-var pathname = window.location.pathname;
-
 function change_registration_title(title) {
   /* Default: CREATE AN ACCOUNT */
   var new_title = "CREATE AN ACCOUNT | " + title;
@@ -31,10 +27,14 @@ function setup_registration_by(user_role) {
   }
 }
 
-/* Restrict script to runs only on "/solidnet/registration/" link */
-if (pathname == "/solidnet/register/") {
-  /* Run this script after loaded */
-  document.addEventListener("DOMContentLoaded", function(){
+/* Run this script after loaded */
+document.addEventListener("DOMContentLoaded", function() {
+  /* get query string parameters */
+  var urlParams = new URLSearchParams(window.location.search);
+  var pathname = window.location.pathname;
+
+  /* Restrict script to runs only on "/solidnet/registration/" link */
+  if (pathname == "/solidnet/register/") {
     /* check the query string */
     if (urlParams.has('action') && (urlParams.get('action') == 'register-user')) {
       if (urlParams.has('user')) {
@@ -59,5 +59,5 @@ if (pathname == "/solidnet/register/") {
       // setup_registration_by('student');
       window.location.href = '/solidnet/pre-registration';
     }
-  });
-}
+  }
+});
