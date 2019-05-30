@@ -16,7 +16,7 @@ function select_user_role_value_as(id) {
     id = 2 -> parent
     id = 3 -> faculty
   */
-  document.getElementById('field_3').selectedIndex = id;
+  document.getElementById('field_7').selectedIndex = id;
 }
 
 /* Modify registration page */
