@@ -1,8 +1,13 @@
 /* get query string parameters */
 var urlParams = new URLSearchParams(window.location.search);
+var pathname = window.location.pathname;
 
 function change_registration_title(title) {
-  jQuery("div.register-page>aside>p").text(title);
+  /* Default: CREATE AN ACCOUNT */
+  var new_title = "CREATE AN ACCOUNT: " + title;
+
+  /* Applicable on eduma template */
+  jQuery("div.banner-wrapper>h1").text(new_title);
 }
 
 function select_user_role_value_as(id) {
@@ -17,28 +22,32 @@ function select_user_role_value_as(id) {
 /* Modify registration page */
 function setup_registration_by(user_role) {
   if (user_role == 'student') {
-    change_registration_title('Sign-up as Student');
     select_user_role_value_as(1);
   } else if (user_role == 'parent') {
-    change_registration_title('Sign-up as Parent');
     select_user_role_value_as(2);
   } else {
     /* faculty/staff */
-    change_registration_title('Sign-up as Faculty/Staff');
     select_user_role_value_as(3);
   }
 }
 
-/* Run this script after loaded */
-document.addEventListener("DOMContentLoaded", function(){
-  /* check the query string */
-  if (urlParams.has('action') && (urlParams.get('action') == 'register-user')) {
-    if (urlParams.has('user')) {
-      var user_role = urlParams.get('user');
+/* Restrict script to runs only on "/solidnet/pre-registration/" link */
+if (pathname == "/solidnet/pre-registration/") {
+  /* Run this script after loaded */
+  document.addEventListener("DOMContentLoaded", function(){
+    /* check the query string */
+    if (urlParams.has('action') && (urlParams.get('action') == 'register-user')) {
+      if (urlParams.has('user')) {
+        var user_role = urlParams.get('user');
 
-      /* Verify user roles */
-      if (user_role == 'student' || user_role == 'parent' || user_role == 'faculty') {
-        setup_registration_by(user_role);
+        /* Verify user roles */
+        if (user_role == 'student' || user_role == 'parent' || user_role == 'faculty') {
+          setup_registration_by(user_role);
+          change_registration_title(user_role);
+        } else {
+          /* default: student */
+          setup_registration_by('student');
+        }
       } else {
         /* default: student */
         setup_registration_by('student');
@@ -47,8 +56,5 @@ document.addEventListener("DOMContentLoaded", function(){
       /* default: student */
       setup_registration_by('student');
     }
-  } else {
-    /* default: student */
-    setup_registration_by('student');
-  }
-});
+  });
+}
