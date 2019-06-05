@@ -82,6 +82,7 @@ function bp_lp_field_settings($taxonomy) {
 
 add_action('after-course_school-table','bp_lp_field_settings');
 
+// Create callback adapter for XField course school
 function watch_create_course_school($term_id, $tt_id, $taxonomy){
     if($taxonomy==='course_school'){
         $data = get_term($term_id);
@@ -96,6 +97,7 @@ function watch_create_course_school($term_id, $tt_id, $taxonomy){
     }
 }
 
+// Edit callback adapter for XField course school
 function watch_edit_course_school($term_id, $tt_id, $taxonomy){
     if($taxonomy==='course_school'){
         $data = get_term($term_id);
@@ -110,6 +112,7 @@ function watch_edit_course_school($term_id, $tt_id, $taxonomy){
     }
 }
 
+// Delete callback adapter for XField course school
 function watch_delete_course_school($term_id, $tt_id, $taxonomy){
     if($taxonomy==='course_school'){
         $bp = buddypress();
@@ -121,10 +124,12 @@ function watch_delete_course_school($term_id, $tt_id, $taxonomy){
 
 add_action('admin_menu', 'bcw_init');
 
+// Initialize anchor link insertion
 function bcw_init() {
     add_filter('course_school_row_actions','bcw_action', 10, 2);
 }
 
+// Insert anchor link on taxonomy manage page
 function bcw_action($actions, $object) {
     $url = add_query_arg(array('post_type'  => 'lp_course',
         'course_school'  => $object->slug), admin_url("edit.php"));
@@ -140,46 +145,112 @@ add_action( 'edited_term', 'watch_edit_course_school', 10, 3 );
 add_action( 'delete_term', 'watch_delete_course_school', 10, 3 );
 
 
+// Check if school item exist on array
+function is_school_exist($wp_query, $school){
+    foreach ($wp_query as $item){
+        if($school===$item->name){
+            return true;
+        }
+    }
+    return false;
+}
+
+// String to HEX
+function strToHex($string){
+    $hex = '';
+    for ($i=0; $i<strlen($string); $i++){
+        $ord = ord($string[$i]);
+        $hexCode = dechex($ord);
+        $hex .= substr('0'.$hexCode, -2);
+    }
+    return strToUpper($hex);
+}
+
+// Filter WP Post Query for specific category
 function exclude_category( $query ) {
-    $user = wp_get_current_user();
-    if(empty($user->roles[0])){
-        return;
-    }
-    if($user->roles[0] == 'subscriber'){
-        return;
-    }
-    if($user->roles[0] == 'student'){
+    if(!empty($query->query)){
+        $data = $query->query;
+        $user = wp_get_current_user();
+        if(empty($data['post_type'])){
+            return;
+        }
+        print_r($data['post_type']);
+        if($data['post_type']=='lp_course'){
+            $data_query = $query->query_vars;
+            if(!empty($data_query)){
+                if(!empty($data_query['lp_course'])){
+                    $tax = 'course_school';
+                    $post = get_page_by_path($data_query['lp_course'], '', 'lp_course');
+                    $post_ID = $post->ID;
+                    $user_school = get_user_school( $user->ID );
+                    if(!is_school_exist(get_the_terms($post_ID, $tax), $user_school)){
+                        $url = add_query_arg( array(
+                            'redirect'   => 1,
+                            'response'   => '404',
+                            'm-content'  => strToHex('The course you are looking was not found.')
+                        ), site_url().'/course' );
+                        wp_redirect($url);
+                        exit();
+                    }
+                }
+            }
+            if(empty($user->roles[0])){
+                $query->set( 'tax_query', array(
+                    array(
+                        'taxonomy' => 'categories',
+                        'field' => 'slug',
+                        'terms' => 'anonymous'
+                    )
+                ) );
 
-        $user_school = get_user_school( $user->ID );
+                return $query;
+            }
+            if($user->roles[0] == 'subscriber'){
+                $query->set( 'tax_query', array(
+                    array(
+                        'taxonomy' => 'categories',
+                        'field' => 'slug',
+                        'terms' => 'subscriber'
+                    )
+                ) );
 
-        $query->set( 'tax_query', array(
-            array(
-                'taxonomy' => 'course_school',
-                'field' => 'slug',
-                'terms' => $user_school
-            )
-        ) );
+                return $query;
+            }
+            if($user->roles[0] == 'lp_teacher'){
 
-        return $query;
+                $user_school = get_user_school( $user->ID );
+
+                $query->set( 'tax_query', array(
+                    array(
+                        'taxonomy' => 'course_school',
+                        'field' => 'slug',
+                        'terms' => $user_school
+                    )
+                ) );
+
+                return $query;
+            }
+            if($user->roles[0] == 'student'){
+
+                $user_school = get_user_school( $user->ID );
+
+                $query->set( 'tax_query', array(
+                    array(
+                        'taxonomy' => 'course_school',
+                        'field' => 'slug',
+                        'terms' => $user_school
+                    )
+                ) );
+
+                return $query;
+            }
+        }
     }
 }
 add_action( 'pre_get_posts', 'exclude_category' );
 
-
-
-
-
-
-
-
-
-
-
-
-
-//add_filter('template_include', 'restict_by_category');
-
- function get_user_school($user_id ) {
+// Get User Meta by User ID
+function get_user_school($user_id ) {
 
     $r = bp_parse_args( [], array(
         'profile_group_id' => 0,
@@ -206,28 +277,4 @@ add_action( 'pre_get_posts', 'exclude_category' );
         }
     }
     return '';
-}
-
-
-function restict_by_category( $template ) {
-    $allow = true;
-    $user = wp_get_current_user();
-    $user_school = get_user_school( $user->ID );
-    $private_categories = array($user_school);
-
-    if ( is_single() ) {
-        $cats = wp_get_object_terms( get_queried_object()->ID, 'course_school', array('fields' => 'slugs') ); // get the categories associated to the required post
-
-        if ( array_intersect( $private_categories, $cats ) ) {
-            // post has a reserved category, let's check user
-            $allow = check_user();
-        }
-
-    } elseif ( is_tax('course_school', $private_categories) ) {
-        // the archive for one of private categories is required, let's check user
-        $allow = check_user();
-    }
-
-    // if allowed include the required template, otherwise include the 'not-allowed' one
-    return $allow ? $template : get_template_directory() . '/not-allowed.php';
 }

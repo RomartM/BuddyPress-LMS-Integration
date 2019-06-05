@@ -26,3 +26,7 @@ function bp_lms_admin_dashboard(){
 function bp_lms_admin_dashboard_init(){
     require_once('dashboard.php');
 }
+
+// Add Admin Dashboard assets
+add_action('admin_enqueue_scripts', 'bp_lms_load_admin_javascript');
+add_action('admin_enqueue_scripts', 'bp_lms_load_admin_stylesheet');

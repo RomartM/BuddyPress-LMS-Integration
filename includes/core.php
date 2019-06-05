@@ -9,10 +9,6 @@ require_once(BP_LMS_BASE_PATH.'/admin/component.php');
 // Load Plugin Config
 require BP_LMS_BASE_PATH.'/admin/config.php';
 
-// Add Admin Dashboard assets
-add_action('admin_enqueue_scripts', 'bp_lms_load_admin_javascript');
-add_action('admin_enqueue_scripts', 'bp_lms_load_admin_stylesheet');
-
 // Load FrontEnd Assets
 require_once(BP_LMS_BASE_PATH.'/public/component.php');
 
@@ -36,12 +32,6 @@ require_once(BP_LMS_BASE_PATH . '/public/shortcode-dashboard-user.php');
 
 // Add Admin Menu
 add_action('admin_menu', 'bp_lms_admin_dashboard');
-
-// Load FrontEnd stylesheet
-add_action('wp_enqueue_scripts', 'bp_lms_load_stylesheet');
-
-// Load javascripts from public dir
-add_action('wp_enqueue_scripts', 'bp_lms_load_javascript');
 
 // Override Old LP Course Post_Type
 //add_action('init','bp_lp_course_post_type');
