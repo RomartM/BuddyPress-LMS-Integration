@@ -174,7 +174,6 @@ function exclude_category( $query ) {
         if(empty($data['post_type'])){
             return;
         }
-        print_r($data['post_type']);
         if($data['post_type']=='lp_course'){
             $data_query = $query->query_vars;
             if(!empty($data_query)){
