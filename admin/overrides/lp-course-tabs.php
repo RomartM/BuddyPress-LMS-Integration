@@ -81,7 +81,7 @@ function bp_lp_admin_course_tabs() {
                 foreach ( $admin_tabs_on_page[ $current_page_id ] as $admin_tab_id ) {
 
                     $class = ( $admin_tabs[ $admin_tab_id ]["id"] == $current_page_id ) ? "nav-tab nav-tab-active" :
-                        ( $admin_tabs[ $admin_tab_id ]["rel-id"] == $current_page_id ) ? "nav-tab nav-tab-active" : "nav-tab";
+                        ( $admin_tabs[ $admin_tab_id ]["id"] == $current_page_id ) ? "nav-tab nav-tab-active" : "nav-tab";
                     echo '<a href="' . admin_url( $admin_tabs[ $admin_tab_id ]["link"] ) . '" class="' . $class . ' nav-tab-' . $admin_tabs[ $admin_tab_id ]["id"] . '">' . $admin_tabs[ $admin_tab_id ]["name"] . '</a>';
                 }
                 echo '</h2>';
