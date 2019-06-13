@@ -102,7 +102,7 @@ class BP_UserRole_List_Table extends WP_List_Table {
         $pending_role = bp_get_profile_field_data('field=User Role&user_id='.$user_object->ID);
 
         // Add a link to the user's author archive, if not empty.
-        $author_posts_url = get_author_posts_url( $user_object->ID );
+        $author_posts_url = site_url().'/members/'.$user_object->user_login;
         if ( $author_posts_url ) {
             $actions['view'] = sprintf(
                 '<a href="%s" aria-label="%s">%s</a>',

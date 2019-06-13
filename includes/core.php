@@ -27,6 +27,9 @@ require_once(BP_LMS_BASE_PATH . '/admin/tweaks/school-taxonomy.php');
 // Load Custom User Taxonomy
 require_once(BP_LMS_BASE_PATH . '/admin/tweaks/user-roles-taxonomy.php');
 
+// Load Test Code Meta Box
+require_once(BP_LMS_BASE_PATH . '/admin/tweaks/quiz-test-code-metabox.php');
+
 // Load User Dashboard Short Code
 require_once(BP_LMS_BASE_PATH . '/public/shortcode-dashboard-user.php');
 
