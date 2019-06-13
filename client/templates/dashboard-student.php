@@ -1,7 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: romart
- * Date: 5/30/19
- * Time: 11:11 AM
- */
+
+$tab_metadata = (object) [
+    [
+        'href'  =>  'course_summary',
+        'tabTitle' =>  'My Courses Summary',
+        'isActive' =>  true,
+        'contentPath'  => get_dashboard_tab_content('parent', 'course_summary')
+    ],
+];
+
+include 'dashboard-item-tab.php';

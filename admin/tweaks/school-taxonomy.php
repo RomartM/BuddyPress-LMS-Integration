@@ -243,6 +243,20 @@ function exclude_category( $query ) {
 
                 return $query;
             }
+            if($user->roles[0] == 'parent'){
+                $tax = 'parent_categories';
+                $user_school = get_user_school( $user->ID );
+
+                $query->set( 'tax_query', array(
+                    array(
+                        'taxonomy' => $tax,
+                        'field' => 'slug',
+                        'terms' => $user_school
+                    )
+                ) );
+
+                return $query;
+            }
         }
     }
 }

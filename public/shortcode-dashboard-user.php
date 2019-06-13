@@ -1,5 +1,20 @@
 <?php
 
+$GLOBALS['hook_suffix'] = 'bp_lms';
+
+require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+require_once(ABSPATH . 'wp-admin/includes/screen.php');
+require_once(ABSPATH . 'wp-admin/includes/class-wp-screen.php');
+require_once(ABSPATH . 'wp-admin/includes/template.php');
+
+if( ! class_exists( 'WP_List_Table' ) ) {
+    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+}
+
+require_once(BP_LMS_BASE_PATH.'/admin/tweaks/subsubsub.php');
+require_once( BP_LMS_BASE_PATH.'/admin/tweaks/BP_UserRole_List_Table.php' );
+
+
 function user_dashboard_assets(){
     global $posts;
     foreach ($posts as $post) {
@@ -18,14 +33,17 @@ function get_dashboard_tab_content($type, $filename){
 
 function user_dashboard_shortcode() {
     $user = wp_get_current_user();
-    if(empty($user->roles[0])){
+    if(empty($user->roles)){
         return;
     }
+    $role_data = '';
+    foreach ($user->roles as $role){
+        $role_data = $role;
+        break;
+    }
     $eligible_users = array("student", "lp_teacher", "parent", "administrator");
-    if(in_array($user->roles[0], $eligible_users)){
-        $usertype = $user->roles[0];
-        //include (BP_LMS_BASE_PATH.'/client/templates/dashboard-header.php');
-        include (BP_LMS_BASE_PATH.'/client/templates/dashboard-'.$user->roles[0].'.php');
+    if(in_array($role_data, $eligible_users)){
+        include (BP_LMS_BASE_PATH.'/client/templates/dashboard-'.$role_data.'.php');
     }
 }
 

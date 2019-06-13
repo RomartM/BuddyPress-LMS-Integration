@@ -11,3 +11,17 @@ div#profile-details-section>div>fieldset>p.field-visibility-settings-header {
 #profile-details-section > .field_7 {
     visibility: hidden;
 }
+
+.bp-lms-sum-student {
+    font-size: 19px;
+    text-align: center;
+    padding: 10px;
+}
+
+.bp-lms-student-information {
+    padding: 18px;
+}
+
+div.bp-lms-search-box {
+    margin: 5px 0px;
+}
