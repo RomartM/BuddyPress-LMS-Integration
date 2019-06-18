@@ -44,4 +44,4 @@ function bp_lms_test_code_save_postdata($post_id)
         );
     }
 }
-add_action('save_post', 'bp_lms_test_code_save_postdata');
+add_action('save_post', 'bp_lms_test_taking_info_save_postdata');

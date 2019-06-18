@@ -1,3 +1,7 @@
+.loginpress-review-notice {
+    display: none !important;
+}
+
 .bp-lms-dashboard-container {
     margin: 0 22px 22px 0;
 }
