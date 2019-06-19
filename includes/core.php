@@ -94,7 +94,7 @@ function bp_lms_remove_start_quiz_hook(){
     remove_action( 'learn_press_request_handler_lp-start-quiz:nopriv', $start_quiz_arr, 5);
 
     function start_quiz_custom() {
-        $access_code = LP_Request::get_int( 'access-code' );
+        $access_code = LP_Request::get_string( 'access-code' );
         $course_id = LP_Request::get_int( 'course-id' );
         $quiz_id   = LP_Request::get_int( 'quiz-id' );
 
