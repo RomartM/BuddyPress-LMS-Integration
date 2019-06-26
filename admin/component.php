@@ -20,7 +20,9 @@ function bp_lms_load_admin_javascript()
 
 function bp_lms_admin_dashboard(){
     add_menu_page('BuddyPress LMS Integration Dashboard', 'BuddyPress LMS', 'manage_options', 'buddypress-lms-integration', 'bp_lms_admin_dashboard_init', '', 55);
+    wp_enqueue_script('bpe-admin-dashboard-script', plugins_url('js/bp-lms-admin-dashboard.js', __FILE__), array('jquery'));
 }
+
 
 // Plugin Admin Dashboard Initiator
 function bp_lms_admin_dashboard_init(){

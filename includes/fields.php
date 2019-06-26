@@ -6,7 +6,6 @@ defined('ABSPATH') or die('No script kiddies please!');
  * Initialization of Custom Preset Fields
  */
 
-
 // Add Permanent Field
 function add_perm_field($id, $field_name){
     // Preset field config template
