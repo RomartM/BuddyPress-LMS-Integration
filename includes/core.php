@@ -40,7 +40,7 @@ require_once(BP_LMS_BASE_PATH . '/admin/tweaks/lesson-code-metabox.php');
 require_once(BP_LMS_BASE_PATH . '/admin/tweaks/quiz-test-taking-metabox.php');
 
 // Load Test Invitation
-require_once(BP_LMS_BASE_PATH . '/admin/tweaks/quiz-test-invitation.php');
+//require_once(BP_LMS_BASE_PATH . '/admin/tweaks/quiz-test-invitation.php');
 
 // Load User Dashboard Short Code
 require_once(BP_LMS_BASE_PATH . '/public/shortcode-dashboard-user.php');
