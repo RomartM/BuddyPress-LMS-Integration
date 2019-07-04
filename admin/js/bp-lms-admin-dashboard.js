@@ -21,3 +21,12 @@ function uuidv4() {
         return v.toString(16);
     });
 }
+
+setTimeout(function(){ // ASAP Alter data export
+    try {
+        var r = document.getElementsByClassName("lpie-export-source")[0];
+        r.children[0].firstElementChild.lastChild.data = "SolidNet"
+    } catch (err) {
+        console.log("Not ment for this page.")
+    }
+}, 1000);

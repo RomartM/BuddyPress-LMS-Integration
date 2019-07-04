@@ -47,9 +47,9 @@ function bp_lms_lesson_code(){
     $id = LP_Global::course_item();
     $lesson_code_data = get_post_meta($id->get_id(), '_bp_lms_lesson_code_meta_key');
     if(empty($lesson_code_data)){
-        echo '<b>Lesson Code not Set</b>';
+        echo '<div class="bp_lms_lesson_code"><b>Lesson Code not Set</b></div>';
     }else{
-        echo 'Lesson Code:<b>'.$lesson_code_data[0].'</b><br/>';
+        echo '<div class="bp_lms_lesson_code">Lesson Code:&nbsp<b>'.$lesson_code_data[0].'</b></div><br/>';
     }
 
 }

@@ -1,52 +1,42 @@
 <div class="fabs">
-    <div class="bp_lms_lesson_student_note">
+    <div class="bp_lms_lesson_student_note ui-widget-content">
         <div class="bp_lms_lesson_student_note_header">
             <span id="bp_lms_lesson_student_note_head">My Note</span>
             <div class="bp_lms_lesson_student_note_loader"></div>
-            <div class="bp_lms_lesson_student_note_option"><i class="zmdi zmdi-more-vert"></i>
-                <ul>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #2196F3" color="blue"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #00bcd4" color="cyan"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #607d8b" color="blue-grey"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #4caf50" color="green"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #8bc34a" color="light-green"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #cddc39" color="lime"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #ffc107" color="amber"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #ff5722" color="deep-orange"></span></li>
-                    <li><span class="bp_lms_lesson_student_note_color" style="border:solid 5px #f44336" color="red"></span></li>
-                </ul>
+            <div class="bp_lms_lesson_student_note_close_btn bp_float_right bp_mini_header_button" title="Close">
+                <i class="zmdi zmdi-close"></i>
             </div>
-            <div class="bp_lms_lesson_student_note_export_btn bp_float_right bp_mini_header_button">
-                <i class="zmdi zmdi-open-in-new"></i>
+            <div class="bp_lms_lesson_student_note_fullscreen_btn bp_float_right bp_mini_header_button" title="Maximize Window">
+                <i class="zmdi zmdi-window-maximize"></i>
             </div>
-            <div class="bp_lms_lesson_student_note_new_note_btn bp_float_right bp_mini_header_button">
+            <div class="bp_float_right bp_lms_separator">
+            </div>
+            <div class="bp_lms_lesson_student_note_new_note_btn bp_float_right bp_mini_header_button" title="Add New">
                 <i class="zmdi zmdi-plus-circle"></i>
+            </div>
+            <div class="bp_lms_lesson_student_note_close_note_btn bp_float_right bp_mini_header_button" style="display: none" title="Close Sheet">
+                <i class="zmdi zmdi-mail-reply"></i>
+            </div>
+            <div class="bp_lms_lesson_student_note_save_btn bp_float_right bp_mini_header_button" style="display: none" title="Save file">
+                <i class="zmdi zmdi-floppy"></i>
+            </div>
+            <div class="bp_lms_lesson_student_note_delete_btn bp_float_right bp_mini_header_button" style="display: none" title="Delete file">
+                <i class="zmdi zmdi-delete"></i>
             </div>
         </div>
         <div class="bp_lms_lesson_student_note_list_wrapper">
-            <div class="bp_lms_lesson_note_item"></div>
         </div>
         <div class="bp_lms_lesson_student_note_new_title">
-            <input type="text" id="noteNewTitle" placeholder="Note Title">
-            <?php wp_editor( 'Note Here', '1-q', $settings = array('quicktags'=>false));?>
+            <input type="text" id="noteTitle" placeholder="Note Title">
+            <?php wp_editor( 'Note Here', 'student_note', $settings = array(
+                'quicktags'=> false,
+                'tinymce'=> array(
+                    "onchange_callback" => "OnStudentNoteChange"
+                )
+            ));?>
         </div>
         <div class="bp_lms_lesson_student_note_editor_wrapper">
         </div>
-        <div id="bp_lms_lesson_student_note_converse" class="bp_lms_lesson_student_note_converse">
-      <span class="bp_lms_lesson_student_note_msg_item bp_lms_lesson_student_note_msg_item_admin">
-            <div class="bp_lms_lesson_student_note_avatar">
-              <i class="zmdi zmdi-headset-mic"></i>
-            </div>Hi! How may I be of service</span>
-            <span class="bp_lms_lesson_student_note_msg_item bp_lms_lesson_student_note_msg_item_user">
-            <div class="bp_lms_lesson_student_note_avatar">
-              <i class="zmdi zmdi-account"></i>
-            </div>Ermm..</span>
-        </div>
-        <div class="fab_field">
-            <a id="fab_listen" class="fab"><i class="zmdi zmdi-mic-outline"></i></a>
-            <a id="fab_send" class="fab"><i class="zmdi zmdi-mail-send"></i></a>
-            <textarea id="bp_lms_lesson_student_noteSend" name="bp_lms_lesson_student_note_message" placeholder="Write a message" class="bp_lms_lesson_student_note_field bp_lms_lesson_student_note_message"></textarea>
-        </div>
     </div>
-    <a id="prime" class="fab"><i class="prime zmdi zmdi-plus"></i></a>
+    <div id="prime" class="fab" title="Note"><i class="prime zmdi zmdi-assignment"></i></div>
 </div>
