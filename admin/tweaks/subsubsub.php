@@ -31,6 +31,9 @@ class BP_LP_UserSubItems {
                             $role = 'lp_teacher';
                         }else{
                             $role = $this->user_role;
+                            if(strtolower($role)=='instructor'){
+                                $role = 'lp_teacher';
+                            }
                         }
                         break;
                     case "pending":
@@ -45,8 +48,11 @@ class BP_LP_UserSubItems {
             }
         }
 
-        $privilege_list = $this->get_user_privilege();
+        if(strtolower($role)=='instructor'){
+            $role = 'lp_teacher';
+        }
 
+        $privilege_list = $this->get_user_privilege();
         $user_list = new WP_User_Query( array(
                 'role' => $role,
                 'search'  => $usersearch,
@@ -180,7 +186,7 @@ class BP_LP_UserSubItems {
                     <?php echo '('.$this->get_user_count($status).')'; ?>
                 </span>
                     </a>
-                        <?php echo ($total_item-$i)!=0? '|':'' ?>
+                    <?php echo ($total_item-$i)!=0? '|':'' ?>
                 </li>
             <?php endforeach;?>
         </ul>

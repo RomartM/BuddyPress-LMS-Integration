@@ -1,3 +1,12 @@
+#user_rolediv {
+    display:none;
+}
+
+#wp-admin-bar-updraft_admin_node {
+    display: none;
+}
+
+
 .loginpress-review-notice {
     display: none !important;
 }
