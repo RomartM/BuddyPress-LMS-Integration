@@ -131,8 +131,7 @@
         $("a").click(function (eve) {
             eve.preventDefault()
             ajaxSave($('.bp_lms_lesson_student_note_save_btn').attr('note-id'), tinyMCE.get('student_note').getContent(), function () {
-                console.log("Reloaded")
-                //window.location.href = eve.target.href;
+                window.location.href = eve.currentTarget.href;
             });
         });
 
